@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
-using std::cout; using std::cin; using std::string;
+#include<vector>
+using std::cout; using std::cin; using std::string; using std::vector;
 //write include statements
 #include "decisions.h"
 
@@ -26,33 +27,38 @@ GPA 3.0
 */
 int main() 
 {
+	vector <int> hours;
+	vector <int> points;
+	string answer;
 	string letter_grade;
 	int credit_hours, sum_credit_hours = 0, sum_credit_points = 0;
 
-	cout << "Enter letter grade: ";
-	cin >> letter_grade;
-	cout << "Enter credit hours: ";
-	cin >> credit_hours;
-	sum_credit_points += get_grade_points(letter_grade) * credit_hours;
-	sum_credit_hours += credit_hours;
+	do
+	{
+		cout << "Enter letter grade: ";
+		cin >> letter_grade;
+		cout << "Enter credit hours: ";
+		cin >> credit_hours;
+		
+		points.push_back(credit_hours * get_grade_points(letter_grade));
+		hours.push_back(credit_hours);
 
-	cout << "Enter letter grade: ";
-	cin >> letter_grade;
-	cout << "Enter credit hours: ";
-	cin >> credit_hours;
-	sum_credit_points += get_grade_points(letter_grade)  * credit_hours;
-	sum_credit_hours += credit_hours;
+		cout<<"More to enter? Y or N \n";
+		cin >> answer;
 
-	cout << "Enter letter grade: ";
-	cin >> letter_grade;
-	cout << "Enter credit hours: ";
-	cin >> credit_hours;
-	sum_credit_points += get_grade_points(letter_grade)  * credit_hours;
-	sum_credit_hours += credit_hours;
+	} while (answer == "Y");
 
+	for (auto n: hours)
+	{
+			sum_credit_hours += n;
+	}
+
+	for (auto n: points)
+	{
+		sum_credit_points += n;
+	}
 
 	double gpa = calculate_gpa(sum_credit_hours, sum_credit_points);
 	cout << "GPA: " << gpa;
-
 	return 0;
 }
